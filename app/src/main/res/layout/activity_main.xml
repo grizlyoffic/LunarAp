@@ -1,174 +1,297 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1A1A2E"
-    android:fillViewport="true">
+    android:background="#0A0E17">
 
+    <!-- SHIZUKU ERROR OVERLAY -->
     <LinearLayout
+        android:id="@+id/shizukuErrorLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="24dp"
-        android:gravity="center_horizontal">
+        android:gravity="center"
+        android:padding="32dp"
+        android:visibility="gone">
 
-        <!-- Logo/Title -->
+        <ImageView
+            android:id="@+id/errorIcon"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@android:drawable/ic_dialog_alert"
+            android:tint="#FF5252"
+            android:alpha="0.8" />
+
         <TextView
+            android:id="@+id/errorTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="LUNAR FF"
-            android:textSize="36sp"
-            android:textColor="#00FF88"
+            android:text="Shizuku Not Connected"
+            android:textSize="24sp"
+            android:textColor="#FFFFFF"
             android:textStyle="bold"
-            android:layout_marginTop="32dp"
-            android:letterSpacing="0.15" />
+            android:layout_marginTop="24dp"
+            android:gravity="center" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Token Injector"
-            android:textSize="14sp"
-            android:textColor="#8892B0"
-            android:layout_marginBottom="32dp" />
-
-        <!-- Status Card -->
-        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/errorMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="#16213E"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="8dp"
-            android:layout_marginBottom="24dp">
+            android:text="Please open Shizuku app, start the service, and grant permission to use Lunar FF."
+            android:textSize="14sp"
+            android:textColor="#8892B0"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:lineSpacingExtra="4dp" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/errorRetryBtn"
+            android:layout_width="200dp"
+            android:layout_height="56dp"
+            android:text="RETRY CONNECTION"
+            android:textSize="14sp"
+            android:textAllCaps="true"
+            android:layout_marginTop="32dp"
+            app:cornerRadius="28dp"
+            app:backgroundTint="#FF5252"
+            android:textColor="#FFFFFF"
+            app:strokeColor="#FF5252"
+            app:strokeWidth="2dp" />
+
+    </LinearLayout>
+
+    <!-- MAIN CONTENT -->
+    <ScrollView
+        android:id="@+id/mainContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- HEADER -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="24dp">
+
+                <View
+                    android:id="@+id/statusDot"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:background="@drawable/circle_green"
+                    android:layout_marginEnd="12dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="LUNAR FF"
+                    android:textSize="28sp"
+                    android:textColor="#00E676"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.15" />
 
                 <TextView
                     android:id="@+id/statusText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Waiting for Shizuku..."
-                    android:textSize="14sp"
-                    android:textColor="#FFD700"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/jwtPreviewText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="11sp"
-                    android:textColor="#64FFDA"
-                    android:layout_marginTop="8dp"
-                    android:visibility="gone"
-                    android:fontFamily="monospace" />
+                    android:text="Shizuku Connected ✓"
+                    android:textSize="12sp"
+                    android:textColor="#00E676" />
 
             </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
 
-        <!-- Token Input -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="#16213E"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="8dp"
-            android:layout_marginBottom="24dp">
-
-            <LinearLayout
+            <!-- TOKEN CARD -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
+                app:cardBackgroundColor="#141A26"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="12dp"
+                app:strokeColor="#1E2A3A"
+                app:strokeWidth="1dp"
+                android:layout_marginBottom="16dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Lunar Token"
-                    android:textSize="16sp"
-                    android:textColor="#CCD6F6"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="12dp" />
-
-                <EditText
-                    android:id="@+id/tokenInput"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter your Lunar Token"
-                    android:textColor="#FFFFFF"
-                    android:textColorHint="#8892B0"
-                    android:background="@drawable/edit_text_bg"
-                    android:padding="16dp"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:textSize="14sp"
-                    android:fontFamily="monospace" />
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/verifyBtn"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lunar Token"
+                        android:textSize="16sp"
+                        android:textColor="#CCD6F6"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="12dp" />
+
+                    <EditText
+                        android:id="@+id/tokenInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:hint="Paste your Lunar Token"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#4A5568"
+                        android:background="@drawable/edit_text_bg"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:textSize="13sp"
+                        android:fontFamily="monospace" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/verifyBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:text="VERIFY TOKEN"
+                        android:textSize="15sp"
+                        android:textAllCaps="true"
+                        android:layout_marginTop="16dp"
+                        app:cornerRadius="16dp"
+                        app:backgroundTint="#0A84FF"
+                        android:textColor="#FFFFFF"
+                        android:letterSpacing="0.1" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- JWT PREVIEW -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#141A26"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="12dp"
+                app:strokeColor="#1E2A3A"
+                app:strokeWidth="1dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="visible">
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:text="VERIFY TOKEN"
-                    android:textSize="16sp"
-                    android:textAllCaps="true"
-                    android:layout_marginTop="16dp"
-                    app:cornerRadius="12dp"
-                    app:backgroundTint="#0A84FF"
-                    android:textColor="#FFFFFF"
-                    android:letterSpacing="0.1" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+                    <TextView
+                        android:id="@+id/uidText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="14sp"
+                        android:textColor="#00E676"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        android:layout_marginBottom="8dp" />
 
-        <!-- Control Buttons -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/startStopBtn"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:text="START"
-            android:textSize="20sp"
-            android:textAllCaps="true"
-            android:layout_marginBottom="12dp"
-            app:cornerRadius="16dp"
-            app:backgroundTint="#00C853"
-            android:textColor="#FFFFFF"
-            android:letterSpacing="0.15"
-            android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/jwtPreviewText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="10sp"
+                        android:textColor="#64FFDA"
+                        android:fontFamily="monospace"
+                        android:visibility="gone"
+                        android:padding="12dp"
+                        android:background="#0A0E17"
+                        android:lineSpacingExtra="2dp" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/logoutBtn"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="LOGOUT"
-            android:textSize="14sp"
-            app:cornerRadius="12dp"
-            app:backgroundTint="#FF5252"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="24dp"
-            style="@style/Widget.Material3.Button.OutlinedButton" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-        <!-- Loading -->
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:visibility="gone"
-            android:indeterminateTint="#0A84FF" />
+            <!-- CONTROL CARD -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/controlCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#141A26"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="12dp"
+                app:strokeColor="#1E2A3A"
+                app:strokeWidth="1dp"
+                android:visibility="gone">
 
-        <!-- Info -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="⚠️ Requires Shizuku App\nAndroid 8+ | API 26+"
-            android:textSize="11sp"
-            android:textColor="#8892B0"
-            android:gravity="center"
-            android:layout_marginTop="16dp"
-            android:lineSpacingExtra="4dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
-    </LinearLayout>
-</ScrollView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Control Panel"
+                        android:textSize="16sp"
+                        android:textColor="#CCD6F6"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="16dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/startStopBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:text="▶ START"
+                        android:textSize="18sp"
+                        android:textAllCaps="true"
+                        android:layout_marginBottom="12dp"
+                        app:cornerRadius="16dp"
+                        android:textColor="#FFFFFF"
+                        android:letterSpacing="0.15"
+                        android:textStyle="bold"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        app:strokeColor="#00E676"
+                        app:strokeWidth="2dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/logoutBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:text="LOGOUT"
+                        android:textSize="14sp"
+                        app:cornerRadius="12dp"
+                        app:backgroundTint="#FF5252"
+                        android:textColor="#FFFFFF"
+                        style="@style/Widget.Material3.Button.TextButton" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- LOADING -->
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:layout_marginTop="16dp"
+                android:indeterminateTint="#0A84FF" />
+
+            <!-- FOOTER -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Requires Shizuku App\nAndroid 8+ | Free Fire OB53"
+                android:textSize="11sp"
+                android:textColor="#4A5568"
+                android:gravity="center"
+                android:layout_marginTop="24dp"
+                android:lineSpacingExtra="4dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>
