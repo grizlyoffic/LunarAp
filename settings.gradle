@@ -6,7 +6,8 @@ pluginManagement {
     }
 }
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    // Ye line ensure karti hai ki sirf settings.gradle ki repos use hon
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS) 
     repositories {
         google()
         mavenCentral()
