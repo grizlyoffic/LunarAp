@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         
         executor.execute(() -> {
             try {
-                String apiUrl = "https://lunar-services.vercel.app/check?token=" + inputToken;
+                String apiUrl = "https://127.0.0.1:8080/check?token=" + inputToken;
                 String response = ApiClient.get(apiUrl);
                 
                 mainHandler.post(() -> {
