@@ -509,7 +509,7 @@ public class MainActivity extends Activity {
             @Override
             public void run() {
                 try {
-                    String apiUrl = "https://127.0.0.1:8080/check?token=" + inputToken;
+                    String apiUrl = "https://host-ggclient.vercel.app/check?token=" + inputToken;
                     String response = ApiClient.get(apiUrl);
                     
                     uiHandler.post(new Runnable() {
